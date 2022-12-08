@@ -29,7 +29,7 @@ const HomeScreen = () => {
 
             {/* Ana Sayfa veri geldiğinde flatlist kullan vitrin - ilan */}
 
-            <ScrollView className="bg-gray-200 mb-32">
+            <ScrollView className="bg-gray-100 mb-32">
                 {/* Vitrin - Flatlist*/}
                 <Text className="font-bold text-xl mt-4 ml-3 mb-2">Vitrin Ev İlanları</Text>
                 <ScrollView

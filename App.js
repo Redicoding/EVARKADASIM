@@ -53,8 +53,8 @@ const TabNavigator = () => {
     >
       <Tab.Screen name="HomeStack" component={HomeScreen} options={{ headerShown: false, title: "Ana Sayfa" }} />
       <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ headerShown: false, title: "Favorilerim" }} />
-      <Tab.Screen name='Message' component={MessageScreen} options={{ title: "Mesaj", tabBarBadge: 4 }} />
-      <Tab.Screen name='Profile' component={ProfileScreen} options={{ title: "Profil" }} />
+      <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: 4 }} />
+      <Tab.Screen name='Profile' component={ProfileScreen} options={{ headerShown: false, title: "Profil" }} />
     </Tab.Navigator>
   )
 }
