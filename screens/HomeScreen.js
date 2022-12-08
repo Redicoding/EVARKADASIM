@@ -16,7 +16,7 @@ const HomeScreen = () => {
                     source={require("../img/Icon.png")}
                     className="w-14 h-14 ml-3"
                 />
-                <Text className="font-extrabold text-fuchsia-700">EV ARKADAŞIM</Text>
+                <Text className="font-extrabold text-base text-[#0292b7]">EV ARKADAŞIM</Text>
             </View>
             {/* Konum Seçme Ekranı Açılır */}
             <TouchableOpacity
