@@ -6,8 +6,15 @@ import Vitrin from '../components/Vitrin'
 import IlanCard from '../components/IlanCard'
 import { useNavigation } from '@react-navigation/native'
 
+import { firebase } from "../firebaseconfig"
+
 const HomeScreen = () => {
     const navigation = useNavigation();
+    // const verify = firebase.auth().currentUser.emailVerified;
+    // if (verify === false) {
+    //     alert("Lütfen mailinizi doğrulayınız.")
+    //     firebase.auth().signOut()
+    // }
     return (
         <SafeAreaView className="pt-10 bg-white">
             {/* TabBar */}

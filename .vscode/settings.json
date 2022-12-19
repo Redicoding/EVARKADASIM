@@ -1,8 +1,11 @@
 {
-    "cSpell.language": "en,tr-TR",
-    "cSpell.words": [
-        "chatbubbles",
-        "Ionicons",
-        "Profileinfo"
-    ]
+  "cSpell.language": "en,tr-TR",
+  "cSpell.words": [
+    "chatbubbles",
+    "emailcontrol",
+    "firebaseconfig",
+    "Ionicons",
+    "passwordcontrol",
+    "Profileinfo"
+  ]
 }

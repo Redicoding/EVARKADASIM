@@ -1,9 +1,11 @@
 import { View, Text } from 'react-native'
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { firebase } from "./firebaseconfig";
 
 import HomeScreen from "./screens/HomeScreen";
 import FavoriteScreen from "./screens/FavoriteScreen";
@@ -12,20 +14,14 @@ import ProfileScreen from "./screens/ProfileScreen";
 import IlanScreen from './screens/HomeStack/IlanScreen';
 import LocationScreen from './screens/HomeStack/LocationScreen';
 
+import LoginScreen from "./screens/Login/LoginScreen";
+import RegisterScreen from "./screens/Login/RegisterScreen";
+
 import Ionicons from "react-native-vector-icons/Ionicons"
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// const HomeStack = () => {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen name='Home' component={TabNavigator} options={{ headerShown: false }} />
-//       <Stack.Screen name='Ilan' component={IlanScreen} options={{ headerShown: false }} />
-//       <Stack.Screen name='Location' component={LocationScreen} options={{ headerShown: false }} />
-//     </Stack.Navigator>
-//   )
-// }
 
 const TabNavigator = () => {
   return (
@@ -60,15 +56,45 @@ const TabNavigator = () => {
 }
 
 const App = () => {
-  return (
-    <NavigationContainer>
+  const [initializing, setInitializing] = useState(true);
+  const [user, setUser] = useState();
+
+  const onAuthState = (u) => {
+    setUser(u);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
+    const subscriber = firebase.auth().onAuthStateChanged(onAuthState);
+    return subscriber;
+  }, [])
+
+  if (initializing) return null;
+
+
+  if (!user) {
+    return (
       <Stack.Navigator>
-        <Stack.Screen name='Home' component={TabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen name='Ilan' component={IlanScreen} options={{ headerShown: false }} />
-        <Stack.Screen name='Location' component={LocationScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='LogIn' component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='Register' component={RegisterScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
-    </NavigationContainer>
+    )
+  }
+
+
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Home' component={TabNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name='Ilan' component={IlanScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='Location' component={LocationScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
   )
 }
 
-export default App
+export default () => {
+  return (
+    <NavigationContainer>
+      <App />
+    </NavigationContainer>
+  )
+}
