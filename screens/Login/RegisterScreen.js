@@ -1,4 +1,4 @@
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, TouchableOpacity, ScrollView } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -71,111 +71,113 @@ const RegisterScreen = () => {
 
 
     return (
-        <SafeAreaView>
-            <Text className="text-[#0292b7] text-2xl font-bold text-center">Aramıza Katıl !</Text>
-            <View className="mt-4">
+        <SafeAreaView className="flex-1">
+            <ScrollView>
+                <Text className="text-[#0292b7] text-2xl font-bold text-center">Aramıza Katıl !</Text>
+                <View className="mt-4">
 
-                {/* Name - Surname */}
-                <View className="flex-row space-x-40">
-                    <Text className=" ml-7 font-bold">Ad</Text>
-                    <Text className="font-bold">Soyad</Text>
-                </View>
-                <View className="flex-row">
-                    <TextInput
-                        placeholder='Ad'
-                        onChangeText={(name) => setName(name)}
-                        autoCorrect={false}
-                        className="border rounded-full m-2 border-gray-300 p-4 text-base w-5/12"
-                    />
-                    <TextInput
-                        placeholder='Soyad'
-                        onChangeText={(surname) => setSurname(surname)}
-                        autoCorrect={false}
-                        className="border rounded-full m-2 border-gray-300 p-4 text-base w-6/12"
-                    />
-                </View>
-
-                {/* Picker */}
-                <View className="flex-row space-x-40">
-                    <Text className=" ml-7 font-bold">Yaş</Text>
-                    <Text className="font-bold">Cinsiyet</Text>
-                </View>
-                <View className="flex-row">
-                    <View className="border rounded-full m-2 border-gray-300 p-2 text-base w-5/12">
-                        <Picker
-                            selectedValue={age}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setAge(itemValue)
-                            }>
-                            {yas}
-                        </Picker>
+                    {/* Name - Surname */}
+                    <View className="flex-row space-x-40">
+                        <Text className=" ml-7 font-bold">Ad</Text>
+                        <Text className="font-bold">Soyad</Text>
                     </View>
-                    <View className="border rounded-full m-2 border-gray-300 p-2 text-base w-6/12">
-                        <Picker
-                            selectedValue={gender}
-                            onValueChange={(itemValue, itemIndex) =>
-                                setGender(itemValue)
-                            }>
-                            <Picker.Item label="Erkek" value="Erkek" />
-                            <Picker.Item label="Kadın" value="Kadın" />
-                        </Picker>
+                    <View className="flex-row">
+                        <TextInput
+                            placeholder='Ad'
+                            onChangeText={(name) => setName(name)}
+                            autoCorrect={false}
+                            className="border rounded-full m-2 border-gray-300 p-4 text-base w-5/12"
+                        />
+                        <TextInput
+                            placeholder='Soyad'
+                            onChangeText={(surname) => setSurname(surname)}
+                            autoCorrect={false}
+                            className="border rounded-full m-2 border-gray-300 p-4 text-base w-6/12"
+                        />
                     </View>
+
+                    {/* Picker */}
+                    <View className="flex-row space-x-40">
+                        <Text className=" ml-7 font-bold">Yaş</Text>
+                        <Text className="font-bold">Cinsiyet</Text>
+                    </View>
+                    <View className="flex-row">
+                        <View className="border rounded-full m-2 border-gray-300 p-2 text-base w-5/12">
+                            <Picker
+                                selectedValue={age}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setAge(itemValue)
+                                }>
+                                {yas}
+                            </Picker>
+                        </View>
+                        <View className="border rounded-full m-2 border-gray-300 p-2 text-base w-6/12">
+                            <Picker
+                                selectedValue={gender}
+                                onValueChange={(itemValue, itemIndex) =>
+                                    setGender(itemValue)
+                                }>
+                                <Picker.Item label="Erkek" value="Erkek" />
+                                <Picker.Item label="Kadın" value="Kadın" />
+                            </Picker>
+                        </View>
+                    </View>
+
+                    {/* Email */}
+                    <Text className=" ml-5 font-bold">Email Adresi</Text>
+                    <TextInput
+                        placeholder='Email Adresi'
+                        onChangeText={(email) => setEmail(email)}
+                        autoCorrect={false}
+                        className="border rounded-full m-2 border-gray-300 p-4 text-base"
+                        keyboardType='email-address'
+                    />
+                    <Text className=" ml-5 font-bold">Email Tekrar</Text>
+                    <TextInput
+                        placeholder='Email Adresi'
+                        onChangeText={(emailcontrol) => setEmailcontrol(emailcontrol)}
+                        autoCorrect={false}
+                        className={controlMailColor}
+                        keyboardType='email-address'
+                    />
+                    {/* Password */}
+                    <Text className=" ml-5 font-bold">Şifre</Text>
+                    <TextInput
+                        placeholder='Şifre'
+                        onChangeText={(password) => setPassword(password)}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        className="border rounded-full m-2 border-gray-300 p-4 text-base"
+                    />
+                    <Text className=" ml-5 font-bold">Şifre Tekrar</Text>
+                    <TextInput
+                        placeholder='Şifre'
+                        onChangeText={(passwordcontrol) => setPasswordcontrol(passwordcontrol)}
+                        autoCorrect={false}
+                        secureTextEntry={true}
+                        className={controlPasswordColor}
+                    />
                 </View>
 
-                {/* Email */}
-                <Text className=" ml-5 font-bold">Email Adresi</Text>
-                <TextInput
-                    placeholder='Email Adresi'
-                    onChangeText={(email) => setEmail(email)}
-                    autoCorrect={false}
-                    className="border rounded-full m-2 border-gray-300 p-4 text-base"
-                    keyboardType='email-address'
-                />
-                <Text className=" ml-5 font-bold">Email Tekrar</Text>
-                <TextInput
-                    placeholder='Email Adresi'
-                    onChangeText={(emailcontrol) => setEmailcontrol(emailcontrol)}
-                    autoCorrect={false}
-                    className={controlMailColor}
-                    keyboardType='email-address'
-                />
-                {/* Password */}
-                <Text className=" ml-5 font-bold">Şifre</Text>
-                <TextInput
-                    placeholder='Şifre'
-                    onChangeText={(password) => setPassword(password)}
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                    className="border rounded-full m-2 border-gray-300 p-4 text-base"
-                />
-                <Text className=" ml-5 font-bold">Şifre Tekrar</Text>
-                <TextInput
-                    placeholder='Şifre'
-                    onChangeText={(passwordcontrol) => setPasswordcontrol(passwordcontrol)}
-                    autoCorrect={false}
-                    secureTextEntry={true}
-                    className={controlPasswordColor}
-                />
-            </View>
-
-            {/* REGISTER BUTTON */}
-            <View className="items-center">
-                <TouchableOpacity
-                    onPress={() => registerUser(email, password, name, surname, age, gender, passwordcontrol, emailcontrol, image)}
-                    className="bg-[#0292b7] rounded-xl w-11/12 h-16 mt-4 items-center justify-center"
-                >
-                    <Text className="font-bold text-xl text-white">Kayıt Ol</Text>
-                </TouchableOpacity>
-                <View className="flex-row mt-6 items-center">
-                    <Text>Zaten bir hesabınız var mı ?</Text>
+                {/* REGISTER BUTTON */}
+                <View className="items-center">
                     <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                        className=" p-3"
+                        onPress={() => registerUser(email, password, name, surname, age, gender, passwordcontrol, emailcontrol, image)}
+                        className="bg-[#0292b7] rounded-xl w-11/12 h-16 mt-4 items-center justify-center"
                     >
-                        <Text className="text-[#0292b7]">Giriş Yap !</Text>
+                        <Text className="font-bold text-xl text-white">Kayıt Ol</Text>
                     </TouchableOpacity>
+                    <View className="flex-row mt-6 items-center">
+                        <Text>Zaten bir hesabınız var mı ?</Text>
+                        <TouchableOpacity
+                            onPress={() => navigation.goBack()}
+                            className=" p-3"
+                        >
+                            <Text className="text-[#0292b7]">Giriş Yap !</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
+            </ScrollView>
         </SafeAreaView>
     )
 }

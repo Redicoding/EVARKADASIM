@@ -19,6 +19,7 @@ import LoginScreen from "./screens/Login/LoginScreen";
 import RegisterScreen from "./screens/Login/RegisterScreen";
 
 import Ionicons from "react-native-vector-icons/Ionicons"
+import ForgetPasswordScreen from './screens/Login/ForgetPasswordScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -79,6 +80,7 @@ const App = () => {
       <Stack.Navigator>
         <Stack.Screen name='LogIn' component={LoginScreen} options={{ headerShown: false }} />
         <Stack.Screen name='Register' component={RegisterScreen} options={{ headerShown: false }} />
+        <Stack.Screen name='ForgetPassword' component={ForgetPasswordScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     )
   }

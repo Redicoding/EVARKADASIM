@@ -16,7 +16,7 @@ const HomeScreen = () => {
     //     firebase.auth().signOut()
     // }
     return (
-        <SafeAreaView className="pt-10 bg-white">
+        <SafeAreaView className="pt-10 flex-1 bg-white">
             {/* TabBar */}
             <View className="flex-row items-center mb-2 space-x-2">
                 <Image
