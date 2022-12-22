@@ -13,11 +13,13 @@ import MessageScreen from "./screens/MessageScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import IlanScreen from './screens/HomeStack/IlanScreen';
 import LocationScreen from './screens/HomeStack/LocationScreen';
+import ProfileUpdateScreen from './screens/HomeStack/ProfileUpdateScreen';
 
 import LoginScreen from "./screens/Login/LoginScreen";
 import RegisterScreen from "./screens/Login/RegisterScreen";
 
 import Ionicons from "react-native-vector-icons/Ionicons"
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -87,6 +89,7 @@ const App = () => {
       <Stack.Screen name='Home' component={TabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name='Ilan' component={IlanScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Location' component={LocationScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='ProfileUpdate' component={ProfileUpdateScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

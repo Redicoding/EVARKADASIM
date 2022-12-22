@@ -4,6 +4,7 @@
     "chatbubbles",
     "emailcontrol",
     "firebaseconfig",
+    "firestore",
     "Ionicons",
     "passwordcontrol",
     "Profileinfo"

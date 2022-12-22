@@ -5,10 +5,13 @@ import Ionicons from "react-native-vector-icons/Ionicons"
 import Profileinfo from '../components/Profileinfo'
 
 import { firebase } from "../firebaseconfig"
+import { useNavigation } from '@react-navigation/native'
 
 const ProfileScreen = () => {
+    const navigation = useNavigation();
     const [user, setUser] = useState("");
 
+    // firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid)
     useEffect(() => {
         firebase.firestore().collection("users")
             .doc(firebase.auth().currentUser.uid).get()
@@ -19,18 +22,21 @@ const ProfileScreen = () => {
                     console.log("Böyle bir kullanıcı yok")
                 }
             })
-    }, [])
+    }, [user])
+
 
     return (
         <SafeAreaView className="pt-12 bg-white">
             <Text className="text-2xl font-bold text-[#0292b7] text-center mb-4">Profilim</Text>
-
             {/* Profile Tab */}
-            <TouchableOpacity className="p-2 py-3 flex-row items-center space-x-2 bg-slate-100 rounded-2xl">
-                <Image source={require("../img/user.jpg")} className="w-20 h-20 rounded-full" />
+            <TouchableOpacity
+                className="p-2 py-3 flex-row items-center space-x-2 bg-slate-100 rounded-2xl"
+                onPress={() => navigation.navigate("ProfileUpdate", { user: user })}
+            >
+                <Image source={{ uri: user.image }} className="w-20 h-20 rounded-full" />
                 <View className="flex-1">
                     <Text className="font-bold text-base">{user.name} {user.surname}</Text>
-                    <Text className="text-[#0292b7] ">Profilimi Göster</Text>
+                    <Text className="text-[#0292b7] ">Profilimi Güncelle</Text>
                 </View>
                 <Ionicons name='arrow-forward-circle-outline' size={30} style={{ marginRight: 7 }} />
             </TouchableOpacity>

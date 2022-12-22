@@ -14,6 +14,7 @@ const RegisterScreen = () => {
     const [surname, setSurname] = useState('');
     const [age, setAge] = useState(18);
     const [gender, setGender] = useState("Erkek");
+    const [image, setImage] = useState("https://www.hotelbooqi.com/wp-content/uploads/2021/12/128-1280406_view-user-icon-png-user-circle-icon-png.png");
 
     const [passwordcontrol, setPasswordcontrol] = useState('');
     const [emailcontrol, setEmailcontrol] = useState('');
@@ -22,7 +23,7 @@ const RegisterScreen = () => {
 
     const mailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-    const registerUser = async (email, password, name, surname, age, gender, passwordcontrol, emailcontrol) => {
+    const registerUser = async (email, password, name, surname, age, gender, passwordcontrol, emailcontrol, image) => {
 
         if (email.match(mailFormat) != null && password.length >= 6 && name.length >= 2 && surname.length >= 2 && password === passwordcontrol && email === emailcontrol) {
 
@@ -37,21 +38,18 @@ const RegisterScreen = () => {
                         }).catch((error) => {
                             alert(error.message)
                         })
-                        .then(() => {
-                            firebase.firestore().collection("users")
-                                .doc(firebase.auth().currentUser.uid)
-                                .set({
-                                    email,
-                                    name,
-                                    surname,
-                                    age,
-                                    gender,
-                                })
+                })
+                .then(() => {
+                    firebase.firestore().collection("users")
+                        .doc(firebase.auth().currentUser.uid)
+                        .set({
+                            email,
+                            name,
+                            surname,
+                            age,
+                            gender,
+                            image,
                         })
-                        .catch((error) => {
-                            alert(error.message)
-                        })
-
                 })
                 .catch((error) => {
                     alert(error.message)
@@ -163,7 +161,7 @@ const RegisterScreen = () => {
             {/* REGISTER BUTTON */}
             <View className="items-center">
                 <TouchableOpacity
-                    onPress={() => registerUser(email, password, name, surname, age, gender, passwordcontrol, emailcontrol)}
+                    onPress={() => registerUser(email, password, name, surname, age, gender, passwordcontrol, emailcontrol, image)}
                     className="bg-[#0292b7] rounded-xl w-11/12 h-16 mt-4 items-center justify-center"
                 >
                     <Text className="font-bold text-xl text-white">Kayıt Ol</Text>
