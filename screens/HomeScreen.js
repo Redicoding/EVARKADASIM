@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView } from 'react-native'
-import React from 'react'
+import { View, Text, SafeAreaView, Image, TouchableOpacity, ScrollView, FlatList, RefreshControl } from 'react-native'
+import React, { useEffect, useState } from 'react'
 
 import AntDesign from "react-native-vector-icons/AntDesign"
 import Vitrin from '../components/Vitrin'
@@ -10,13 +10,33 @@ import { firebase } from "../firebaseconfig"
 
 const HomeScreen = () => {
     const navigation = useNavigation();
+    const [ilanlar, setIlanlar] = useState();
+    const [refresh, setRefresh] = useState(false);
     // const verify = firebase.auth().currentUser.emailVerified;
     // if (verify === false) {
     //     alert("Lütfen mailinizi doğrulayınız.")
     //     firebase.auth().signOut()
     // }
+    const pullMe = () => {
+        setRefresh(true)
+        setTimeout(() => {
+            setRefresh(false)
+        }, 1000)
+    }
+    useEffect(() => {
+        firebase.firestore().collection("ilanlar").get()
+            .then((snapshot) => {
+                const list = []
+                snapshot.forEach((doc) => {
+                    const data = doc.data()
+                    list.push(data)
+                })
+                setIlanlar(list)
+            })
+        console.log("HomeScreen useEffect çalıştı.")
+    }, [refresh])
     return (
-        <SafeAreaView className="pt-10 flex-1 bg-white">
+        <SafeAreaView className="pt-10 bg-white flex-1">
             {/* TabBar */}
             <View className="flex-row items-center mb-2 space-x-2">
                 <Image
@@ -34,27 +54,33 @@ const HomeScreen = () => {
                 <Text>Herhangi bir konum</Text>
             </TouchableOpacity>
 
-            {/* Ana Sayfa veri geldiğinde flatlist kullan vitrin - ilan */}
+            {/* vitrin - ilan */}
 
-            <ScrollView className="bg-gray-100 mb-32">
-                {/* Vitrin - Flatlist*/}
-                <Text className="font-bold text-xl mt-4 ml-3 mb-2">Vitrin Ev İlanları</Text>
+            <ScrollView className="bg-gray-100 mb-10" refreshControl={<RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />}>
+                {/* Vitrin */}
+                <Text className="font-bold text-xl mt-4 ml-3 mb-2">Öne Çıkan İlanlar</Text>
                 <ScrollView
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     className="ml-2"
                 >
-                    <Vitrin />
-                    <Vitrin />
-                    <Vitrin />
-                    <Vitrin />
+                    {ilanlar != undefined ? ilanlar.map((ilan, index) => (
+                        <Vitrin ilan={ilan} key={index} />
+                    )) : <Text className="text-center">Yükleniyor...</Text>}
                 </ScrollView>
 
-                {/* Ev İlanları - FlatList*/}
+                {/* Ev İlanları */}
                 <Text className="font-bold text-xl mt-4 ml-3 mb-2">Ev İlanları</Text>
-                <IlanCard />
-                <IlanCard />
-                <IlanCard />
+                {ilanlar != undefined ? ilanlar.map((ilan, index) => (
+                    <IlanCard ilan={ilan} key={index} />
+                )) : <Text className="text-center">Yükleniyor...</Text>}
+                {/* {ilanlar != undefined ? <FlatList
+                    data={ilanlar}
+                    className="ml-2"
+                    renderItem={({ item }) => (
+                        <IlanCard ilan={item} />
+                    )}
+                /> : <Text>Yükleniyor...</Text>} */}
 
             </ScrollView>
 

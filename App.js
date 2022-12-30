@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,10 +20,19 @@ import RegisterScreen from "./screens/Login/RegisterScreen";
 
 import Ionicons from "react-native-vector-icons/Ionicons"
 import ForgetPasswordScreen from './screens/Login/ForgetPasswordScreen';
+import AddilanScreen from './screens/AddilanScreen';
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const CustomButton = ({ child, onPress }) => {
+  <TouchableOpacity className="-top-8 justify-center items-center" onPress={onPress}>
+    <View className="w-16 h-16 rounded-full bg-red-400">
+      {child}
+    </View>
+  </TouchableOpacity>
+}
 
 
 const TabNavigator = () => {
@@ -41,6 +50,8 @@ const TabNavigator = () => {
             iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
           } else if (route.name === 'Profile') {
             iconName = focused ? 'person' : 'person-outline';
+          } else if (route.name === 'Addilan') {
+            iconName = focused ? 'add-circle' : 'add-circle-outline';
           }
 
           return <Ionicons name={iconName} size={23} color={color} />
@@ -48,10 +59,12 @@ const TabNavigator = () => {
         tabBarActiveTintColor: 'black',
         tabBarInactiveTintColor: 'gray',
         tabBarShowLabel: false,
+        tabBarStyle: { position: "absolute" }
       })}
     >
       <Tab.Screen name="HomeStack" component={HomeScreen} options={{ headerShown: false, title: "Ana Sayfa" }} />
       <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ headerShown: false, title: "Favorilerim" }} />
+      <Tab.Screen name="Addilan" component={AddilanScreen} options={{ headerShown: false, title: "Ilan Ekle" }} />
       <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: 4 }} />
       <Tab.Screen name='Profile' component={ProfileScreen} options={{ headerShown: false, title: "Profil" }} />
     </Tab.Navigator>

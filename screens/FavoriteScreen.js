@@ -3,7 +3,7 @@ import React from 'react'
 
 const FavoriteScreen = () => {
     return (
-        <SafeAreaView className="flex-1">
+        <SafeAreaView className="flex-1 pt-12">
             <Text className="text-2xl font-bold text-[#0292b7] text-center mb-4">Favorilerim</Text>
         </SafeAreaView>
     )

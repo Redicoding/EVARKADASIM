@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, SafeAreaView, Image, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, SafeAreaView, Image, ScrollView, RefreshControl } from 'react-native'
 import React, { useState, useEffect } from 'react'
 
 import Ionicons from "react-native-vector-icons/Ionicons"
@@ -10,6 +10,15 @@ import { useNavigation } from '@react-navigation/native'
 const ProfileScreen = () => {
     const navigation = useNavigation();
     const [user, setUser] = useState("");
+    const [refresh, setRefresh] = useState(false)
+
+
+    const pullMe = () => {
+        setRefresh(true)
+        setTimeout(() => {
+            setRefresh(false)
+        }, 1000)
+    }
 
     // firebase.firestore().collection("users").doc(firebase.auth().currentUser.uid)
     useEffect(() => {
@@ -22,12 +31,13 @@ const ProfileScreen = () => {
                     console.log("Böyle bir kullanıcı yok")
                 }
             })
-    }, [user])
+        console.log("ProfileScreen useEffect çalıştı.")
+    }, [refresh])
 
 
     return (
         <SafeAreaView className="pt-12 flex-1 bg-white">
-            <ScrollView>
+            <ScrollView refreshControl={<RefreshControl refreshing={refresh} onRefresh={() => pullMe()} />}>
                 <Text className="text-2xl font-bold text-[#0292b7] text-center mb-4">Profilim</Text>
                 {/* Profile Tab */}
                 <TouchableOpacity

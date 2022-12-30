@@ -23,39 +23,66 @@ const ProfileUpdateScreen = ({ route }) => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
-            aspect: [4, 3],
             quality: 1,
         });
         if (!result.canceled) {
             setImage(result.assets[0].uri);
         }
     }
-    // UploadImage
-    const uploadImage = async () => {
-        const response = await fetch(image);
-        const blob = await response.blob();
-        const fileName = image.substring(image.lastIndexOf('/') + 1);
-        var ref = firebase.storage().ref().child(fileName).put(blob);
 
+    async function uploadImage() {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response); // when BlobModule finishes reading, resolve with the blob
+            };
+            xhr.onerror = function () {
+                reject(new TypeError('Network request failed')); // error occurred, rejecting
+            };
+            xhr.responseType = 'blob'; // use BlobModule's UriHandler
+            xhr.open('GET', image, true); // fetch the blob from uri in async mode
+            xhr.send(null); // no initial data
+        });
+
+        const fileName = image.substring(image.lastIndexOf('/') + 1);
+        // do something with the blob, eg. upload it to firebase (API v5.6.0 below)
+        const ref = firebase
+            .storage()
+            .ref()
+            .child(fileName);
         try {
-            await ref;
-            await firebase.storage().ref().child(fileName).getDownloadURL()
+            const snapshot = await ref.put(blob);
+            await snapshot.ref.getDownloadURL()
                 .then((downloadUrl) => {
 
                     firebase.firestore().collection("users")
                         .doc(firebase.auth().currentUser.uid).update({
                             image: downloadUrl,
                         })
+                        .then(() => {
+                            firebase.firestore().collection("ilanlar").where("email", "==", firebase.auth().currentUser.email).get()
+                                .then((snapshot) => {
+                                    snapshot.forEach((doc) => {
+                                        doc.ref.update({
+                                            userImage: downloadUrl,
+                                        })
+                                    })
+                                })
+                        })
+                }).catch((error) => {
+                    console.log(error);
                 })
         } catch (error) {
             console.log(error);
             alert("Fotoğraf yüklemeyi tekrar deneyiniz.")
         }
-
         setImage(null);
 
     }
 
+
+
+    // UpdateProfile
     const updateProfile = async (age, gender, name, surname) => {
         if (image != null) uploadImage();
 
@@ -67,6 +94,16 @@ const ProfileUpdateScreen = ({ route }) => {
                     name: name,
                     surname: surname,
                 }).then(() => {
+                    firebase.firestore().collection("ilanlar").where("email", "==", firebase.auth().currentUser.email).get()
+                        .then((snapshot) => {
+                            snapshot.forEach((doc) => {
+                                doc.ref.update({
+                                    userName: name,
+                                    userAge: age,
+                                    userGender: gender,
+                                })
+                            })
+                        })
                     alert("Profiliniz Başarıyla Güncellenmiştir.");
                     navigation.goBack();
                 })
@@ -89,7 +126,7 @@ const ProfileUpdateScreen = ({ route }) => {
     }
 
     return (
-        <SafeAreaView className="flex-1">
+        <SafeAreaView className="flex-1 mt-12">
             <ScrollView>
                 <View className="items-center">
                     <TouchableOpacity onPress={pickImage} className=" w-52 items-center">
