@@ -11,6 +11,7 @@ import { firebase } from "../firebaseconfig"
 const HomeScreen = () => {
     const navigation = useNavigation();
     const [ilanlar, setIlanlar] = useState();
+    const [onecikanlar, setOnecikanlar] = useState();
     const [refresh, setRefresh] = useState(false);
     // const verify = firebase.auth().currentUser.emailVerified;
     // if (verify === false) {
@@ -33,6 +34,15 @@ const HomeScreen = () => {
                 })
                 setIlanlar(list)
             })
+        firebase.firestore().collection("ilanlar").orderBy("price").limit(5).get()
+            .then((snapshot) => {
+                const list2 = []
+                snapshot.forEach((doc) => {
+                    const data2 = doc.data()
+                    list2.push(data2)
+                })
+                setOnecikanlar(list2)
+            })
         console.log("HomeScreen useEffect çalıştı.")
     }, [refresh])
     return (
@@ -47,7 +57,7 @@ const HomeScreen = () => {
             </View>
             {/* Konum Seçme Ekranı Açılır */}
             <TouchableOpacity
-                onPress={() => navigation.navigate("Location")}
+                onPress={() => navigation.navigate("Search")}
                 className="bg-gray-200 p-4 ml-3 mr-5 mb-3 rounded-2xl flex-row space-x-2"
             >
                 <AntDesign name='enviromento' size={20} />
@@ -64,7 +74,7 @@ const HomeScreen = () => {
                     showsHorizontalScrollIndicator={false}
                     className="ml-2"
                 >
-                    {ilanlar != undefined ? ilanlar.map((ilan, index) => (
+                    {onecikanlar != undefined ? onecikanlar.map((ilan, index) => (
                         <Vitrin ilan={ilan} key={index} />
                     )) : <Text className="text-center">Yükleniyor...</Text>}
                 </ScrollView>

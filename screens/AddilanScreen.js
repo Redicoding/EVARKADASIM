@@ -16,13 +16,14 @@ const AddilanScreen = () => {
     const [city, setCity] = useState("Adana");
     const [town, setTown] = useState("");
     const [price, setPrice] = useState(0);
-    const [time, setTime] = useState("1 Gün");
+    const [time, setTime] = useState("1 Yıl +");
     const [pricetime, setPricetime] = useState("Ay");
     const [age, setAge] = useState("Farketmez");
     const [gender, setGender] = useState("Farketmez");
     const [smoking, setSmoking] = useState("Evet");
     const [pet, setPet] = useState("Evet");
     const [about, setAbout] = useState("");
+    const [date, setDate] = useState(new Date());
     const [img1, setImg1] = useState(null);
     const [img2, setImg2] = useState(null);
     const [img3, setImg3] = useState(null);
@@ -121,12 +122,14 @@ const AddilanScreen = () => {
                     userAge: user.age,
                     userGender: user.gender,
                     userImage: user.image,
+                    date: date.toLocaleDateString(),
                 }).catch((error) => {
                     console.log(error);
                     alert("İlan Eklenemedi !");
                 })
             setImg1(null); setImg2(null); setImg3(null); setImg4(null); setImg5(null); setImg6(null);
             setUrl([null, null, null, null, null, null, null]);
+            setAbout(""); setPrice(0); setTown("");
             alert("Tebrikler Yeni İlanınız Yayında!")
             navigation.goBack();
         } else {
@@ -168,7 +171,6 @@ const AddilanScreen = () => {
                             setCity(itemValue)
                         }
                         }>
-                        {/* <Picker.Item label="Erkek" value="Erkek" /> */}
                         {cities.map((c) => {
                             return <Picker.Item key={c.id} label={c.name} value={c.name} />
                         })}
@@ -218,11 +220,11 @@ const AddilanScreen = () => {
                         onValueChange={(itemValue, itemIndex) =>
                             setTime(itemValue)
                         }>
-                        <Picker.Item label="1 Gün" value="1 Gün" />
-                        <Picker.Item label="1 Ay" value="1 Ay" />
+                        <Picker.Item label="1 Yıl +" value="1 Yıl +" />
                         <Picker.Item label="3 ay" value="3 ay" />
                         <Picker.Item label="6 ay" value="6 ay" />
-                        <Picker.Item label="1 Yıl +" value="1 Yıl +" />
+                        <Picker.Item label="1 Ay" value="1 Ay" />
+                        <Picker.Item label="1 Gün" value="1 Gün" />
                     </Picker>
                 </View>
 

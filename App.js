@@ -8,7 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { firebase } from "./firebaseconfig";
 
 import HomeScreen from "./screens/HomeScreen";
-import FavoriteScreen from "./screens/FavoriteScreen";
+import SearchScreen from "./screens/SearchScreen";
 import MessageScreen from "./screens/MessageScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import IlanScreen from './screens/HomeStack/IlanScreen';
@@ -21,6 +21,8 @@ import RegisterScreen from "./screens/Login/RegisterScreen";
 import Ionicons from "react-native-vector-icons/Ionicons"
 import ForgetPasswordScreen from './screens/Login/ForgetPasswordScreen';
 import AddilanScreen from './screens/AddilanScreen';
+import UserIlanScreen from './screens/HomeStack/UserIlanScreen';
+import AboutScreen from './screens/HomeStack/AboutScreen';
 
 
 const Tab = createBottomTabNavigator();
@@ -44,8 +46,8 @@ const TabNavigator = () => {
 
           if (route.name === 'HomeStack') {
             iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Favorite') {
-            iconName = focused ? 'heart' : 'heart-outline';
+          } else if (route.name === 'Search') {
+            iconName = focused ? 'search' : 'search-outline';
           } else if (route.name === 'Message') {
             iconName = focused ? 'chatbubbles' : 'chatbubbles-outline';
           } else if (route.name === 'Profile') {
@@ -63,9 +65,9 @@ const TabNavigator = () => {
       })}
     >
       <Tab.Screen name="HomeStack" component={HomeScreen} options={{ headerShown: false, title: "Ana Sayfa" }} />
-      <Tab.Screen name="Favorite" component={FavoriteScreen} options={{ headerShown: false, title: "Favorilerim" }} />
+      <Tab.Screen name="Search" component={SearchScreen} options={{ headerShown: false, title: "Favorilerim" }} />
       <Tab.Screen name="Addilan" component={AddilanScreen} options={{ headerShown: false, title: "Ilan Ekle" }} />
-      <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: 4 }} />
+      <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: 2 }} />
       <Tab.Screen name='Profile' component={ProfileScreen} options={{ headerShown: false, title: "Profil" }} />
     </Tab.Navigator>
   )
@@ -105,6 +107,8 @@ const App = () => {
       <Stack.Screen name='Ilan' component={IlanScreen} options={{ headerShown: false }} />
       <Stack.Screen name='Location' component={LocationScreen} options={{ headerShown: false }} />
       <Stack.Screen name='ProfileUpdate' component={ProfileUpdateScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='UserIlan' component={UserIlanScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='About' component={AboutScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
