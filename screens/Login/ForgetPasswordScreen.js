@@ -32,7 +32,7 @@ const ForgetPasswordScreen = () => {
                 onChangeText={(email) => setEmail(email)}
                 autoCorrect={false}
                 autoCapitalize='none'
-                className="border rounded-full m-2 border-gray-300 p-4 text-base"
+                className="border rounded-xl m-2 border-gray-300 p-4 text-base"
                 keyboardType='email-address'
             />
             <View className="items-center">

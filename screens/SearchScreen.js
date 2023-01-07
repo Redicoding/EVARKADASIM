@@ -56,6 +56,7 @@ const SearchScreen = () => {
                 {ilanlar != undefined ? ilanlar.map((ilan, index) => (
                     <IlanCard ilan={ilan} key={index} />
                 )) : <Text className="text-center">Yükleniyor...</Text>}
+                {location == "" ? <Text className="text-center">Ev Arkadaşı aradığın şehri seç ve sana uygun olan ilanları hemen görüntüle !</Text> : null}
             </ScrollView>
         </SafeAreaView>
     )

@@ -17,10 +17,22 @@ const IlanScreen = ({ route }) => {
         route.params.ilan.img5,
         route.params.ilan.img6
     ]
+
+    // Photo Slider Size
     const { width } = Dimensions.get('window');
     const height = width * 1.3;
+
     const userEmail = firebase.auth().currentUser.email;
 
+    //Create Chat Function
+    const createChat = async () => {
+        await firebase.firestore().collection("chats")
+            .add({
+                users: [userEmail, route.params.ilan.email],
+            })
+    }
+
+    //ilan Delete
     const ilanSil = () => {
         let query = firebase.firestore().collection("ilanlar")
         query = query.where("email", "==", userEmail)
@@ -111,7 +123,7 @@ const IlanScreen = ({ route }) => {
                         <Text className=" text-white text-center py-3 font-bold text-xl">İlanı Sil</Text>
                     </View>
                 </TouchableOpacity> :
-                <TouchableOpacity className="bg-[#0292b7]" onPress={() => navigation.navigate("Message")}>
+                <TouchableOpacity className="bg-[#0292b7]" onPress={() => { createChat(); navigation.navigate("Message"); }}>
                     <View className="flex-row items-center justify-center">
                         <Ionicons name="chatbox-ellipses" size={30} color="white" style={{ paddingRight: 20 }} />
                         <Text className=" text-white text-center py-3 font-bold text-xl">Ücretsiz Mesaj Gönder</Text>

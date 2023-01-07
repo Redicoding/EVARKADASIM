@@ -71,9 +71,9 @@ const ProfileScreen = () => {
                         className="flex-row items-center space-x-3 border-b border-gray-300 p-4"
                         onPress={() => navigation.navigate("UserIlan")}
                     >
-                        <Ionicons name="duplicate-sharp" size={30} />
+                        <Ionicons name="duplicate-sharp" size={30} color="gold" />
                         <Text className="text-lg flex-1">Ev İlanlarım !</Text>
-                        <Ionicons name='chevron-forward-outline' size={22} />
+                        <Ionicons name='chevron-forward-outline' size={22} color="gold" />
                     </TouchableOpacity>
                 </View>
 
@@ -85,7 +85,7 @@ const ProfileScreen = () => {
                     <Profileinfo name="Kullanım Koşulları" icon='book-outline' />
                     <Profileinfo name="Sıkça Sorulan Sorular" icon='help-outline' />
                     {/* User Delete */}
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         className="flex-row items-center space-x-3 border-b border-gray-300 p-4"
                         onPress={() => {
                             Alert.alert("Bu işlem geri alınamaz.", "Hesabınızı silmek istediğinize emin misiniz?", [{ text: "Hesabı Sil" }, { text: "Vazgeç" }])
@@ -94,17 +94,18 @@ const ProfileScreen = () => {
                         <Ionicons name="trash-outline" size={30} />
                         <Text className="text-lg flex-1">Hesabımı Sil</Text>
                         <Ionicons name='chevron-forward-outline' size={22} />
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     {/* Sign Out */}
                     <TouchableOpacity
                         className="flex-row items-center space-x-3 border-b border-gray-300 p-4"
-                        onPress={() => firebase.auth().signOut()}
+                        onPress={() => { Alert.alert("Çıkış Yap !", "Çıkış yapmak istediğinize emin misiniz?", [{ text: "Çıkış Yap", onPress: () => firebase.auth().signOut() }, { text: "Vazgeç" }]) }}
                     >
-                        <Ionicons name="exit-outline" size={30} />
+                        <Ionicons name="exit-outline" size={30} color="red" />
                         <Text className="text-lg flex-1">Çıkış Yap</Text>
-                        <Ionicons name='chevron-forward-outline' size={22} />
+                        <Ionicons name='chevron-forward-outline' size={22} color="red" />
                     </TouchableOpacity>
                 </View>
+                <Image source={require("../img/Icon.png")} className="w-32 h-32 self-center my-5" />
             </ScrollView>
         </SafeAreaView>
     )

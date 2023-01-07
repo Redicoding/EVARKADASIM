@@ -23,18 +23,12 @@ import ForgetPasswordScreen from './screens/Login/ForgetPasswordScreen';
 import AddilanScreen from './screens/AddilanScreen';
 import UserIlanScreen from './screens/HomeStack/UserIlanScreen';
 import AboutScreen from './screens/HomeStack/AboutScreen';
+import MessageDetailScreen from './screens/HomeStack/MessageDetailScreen';
 
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const CustomButton = ({ child, onPress }) => {
-  <TouchableOpacity className="-top-8 justify-center items-center" onPress={onPress}>
-    <View className="w-16 h-16 rounded-full bg-red-400">
-      {child}
-    </View>
-  </TouchableOpacity>
-}
 
 
 const TabNavigator = () => {
@@ -67,7 +61,7 @@ const TabNavigator = () => {
       <Tab.Screen name="HomeStack" component={HomeScreen} options={{ headerShown: false, title: "Ana Sayfa" }} />
       <Tab.Screen name="Search" component={SearchScreen} options={{ headerShown: false, title: "Favorilerim" }} />
       <Tab.Screen name="Addilan" component={AddilanScreen} options={{ headerShown: false, title: "Ilan Ekle" }} />
-      <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: 2 }} />
+      <Tab.Screen name='Message' component={MessageScreen} options={{ headerShown: false, title: "Mesaj", tabBarBadge: "Yeni" }} />
       <Tab.Screen name='Profile' component={ProfileScreen} options={{ headerShown: false, title: "Profil" }} />
     </Tab.Navigator>
   )
@@ -109,6 +103,7 @@ const App = () => {
       <Stack.Screen name='ProfileUpdate' component={ProfileUpdateScreen} options={{ headerShown: false }} />
       <Stack.Screen name='UserIlan' component={UserIlanScreen} options={{ headerShown: false }} />
       <Stack.Screen name='About' component={AboutScreen} options={{ headerShown: false }} />
+      <Stack.Screen name='MessageDetail' component={MessageDetailScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }

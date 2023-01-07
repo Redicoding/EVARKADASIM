@@ -8,11 +8,13 @@ import { useNavigation } from '@react-navigation/native'
 
 import { firebase } from "../firebaseconfig"
 
+
 const HomeScreen = () => {
     const navigation = useNavigation();
     const [ilanlar, setIlanlar] = useState();
     const [onecikanlar, setOnecikanlar] = useState();
     const [refresh, setRefresh] = useState(false);
+
     // const verify = firebase.auth().currentUser.emailVerified;
     // if (verify === false) {
     //     alert("Lütfen mailinizi doğrulayınız.")
@@ -29,10 +31,11 @@ const HomeScreen = () => {
             .then((snapshot) => {
                 const list = []
                 snapshot.forEach((doc) => {
-                    const data = doc.data()
+                    const data = doc.data();
                     list.push(data)
                 })
                 setIlanlar(list)
+
             })
         firebase.firestore().collection("ilanlar").orderBy("price").limit(5).get()
             .then((snapshot) => {
@@ -93,7 +96,6 @@ const HomeScreen = () => {
                 /> : <Text>Yükleniyor...</Text>} */}
 
             </ScrollView>
-
         </SafeAreaView>
     )
 }
